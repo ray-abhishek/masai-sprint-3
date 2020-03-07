@@ -4,78 +4,15 @@
         <title>Movie Database</title>
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
         <link href="https://fonts.googleapis.com/css?family=Fredoka+One|Righteous&display=swap" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="index.css">
     </head>
-    <style type="text/css">
-        div.container-fluid{
-            max-height:900px;
-            min-width: 300px;
-            
-        }
-        #mid{
-            background: linear-gradient(90deg, #00C9FF 0%, #92FE9D 100%);
-        }
-        a.btn-danger{
-            border:3px solid white;
-            font-size:23px;
-            font-weight: 800;
-        }
-        #mid a{
-            color:white;
-        }
-        #mid a:hover{
-            border:3px solid gold;
-            color:cornsilk;
-        }
-        #intro1{
-            display:block;
-            font-family: 'Righteous';
-            text-align:Center;
-            font-size:5rem;
-            margin-bottom:100px;
-            margin-top:0px;
-            color:white;
-        }
-        #intro2{
-            display:none;
-        }
-        @media (max-width:1130px){
-            #intro1{
-                font-size:3.6rem;
-            }
-        }
-        @media (max-width: 768px){
-            #mid{
-                max-height:300px;
-            }
-            #mid input{
-                max-width:50%;
-                margin: 0 auto;
-            }
-            #sec1 img, #sec2 img{
-                max-height:270px;
-            }
-            #sec1, #sec2{
-                height:70% !important;
-            }
-            #intro1{
-                display:none;
-            }
-            #intro2{
-                display:block;
-                font-family: 'Righteous';
-                text-align:Center;
-                font-size:2rem;
-                margin-bottom:20px;
-                color:white;
-            }
-        }
-    </style>
+    
     <body>
         <div class="container-fluid pl-0 pr-0">
             <div class="row d-flex flex-row align-items-stretch align-md-items-center vh-100">
                 <div class="col-xs-6 col-sm-6 col-md-4 bg-transparent d-flex flex-column justify-content-center pr-sm-0 pl-xs-0 pl-sm-0 h-100" id="sec1">
                     <div class="card h-100" id="card1">
-                        <img class="card-img-top" alt="movie poster">
+                        <img class="card-img-top">
                         <div class="card-body">
                             <h5 class="card-title" id="mo1-title"></h5>
                             <p class="card-text" id="mo1-plot"></p>
@@ -120,7 +57,7 @@
                 </div>
                 <div class="col-xs-6 col-sm-6 col-md-4 bg-transparent d-flex flex-column justify-content-center pl-md-0 pr-xs-0 pr-sm-0 h-100" id="sec2">
                     <div class="card h-100" id='card2'>
-                        <img class="card-img-top" alt="movie poster">
+                        <img class="card-img-top">
                         <div class="card-body">
                             <h5 class="card-title" id="mo2-title"></h5>
                             <p class="card-text" id="mo2-plot"></p>
@@ -147,110 +84,7 @@
             </div>
         </div>
     </body>
-    <script type="text/javascript">
-
-        var movie1 = document.getElementById('title1')
-        var movie2 = document.getElementById('title2')
-        var card1 = document.getElementById('card1')
-        var card2 = document.getElementById('card2')
-        var compare_btn = document.querySelector('.btn-danger')
-        compare_btn.addEventListener('click',getDataBoth)
-        card1.style.visibility = 'hidden'  
-        card2.style.visibility = 'hidden'  
-       
-        function getDataBoth()
-        {
-            if(movie1.value!="" && movie2.value != "")
-            {
-                getMovie1ForString(movie1.value)
-                getMovie2ForString(movie2.value)
-            }
-            else 
-            {
-                console.log("NO EMPTY INPUT")
-            }
-            
-        }
-        function getMovie1ForString(movie1_name)
-        {
-            var mov_obj = {}
-            var xhr = new XMLHttpRequest()
-            xhr.open('GET','http://www.omdbapi.com/?t='+movie1_name+'&apikey=7b8b2f1f')
-            xhr.send()
-            xhr.onload = function(){
-                if(xhr.status == 200)
-                {   
-                  //  console.log(JSON.parse(xhr.response))
-                    showCard1(JSON.parse(xhr.response))
-                }
-                else console.log(xhr.response)
-            }
-            xhr.onerror = function(){
-                console.log("dude it broke")
-            }
-
-           
-        }
-        function getMovie2ForString(movie2_name)
-        {
-            var mov_obj = {}
-            var xhr = new XMLHttpRequest()
-            xhr.open('GET','http://www.omdbapi.com/?t='+movie2_name+'&apikey=7b8b2f1f')
-            xhr.send()
-            xhr.onload = function(){
-                if(xhr.status == 200)
-                {   
-                  //  console.log(JSON.parse(xhr.response))
-                    localStorage.setItem(movie2_name,xhr.response)
-                    showCard2(JSON.parse(xhr.response))
-                }
-                else console.log(xhr.status)
-            }
-            xhr.onerror = function(){
-                console.log("dude it broke")
-            }
-
-           
-        }
-        function showCard1(movie1){
-            card1.style.visibility = 'visible'
-            console.log(movie1)
-            var img1 = card1.querySelector('img')
-            img1.setAttribute('src',movie1.Poster)
-            var mo1_title = document.getElementById('mo1-title')
-            var mo1_plot = document.getElementById('mo1-plot')
-            var year1 = document.getElementById('year1')
-            var awards1 = document.getElementById('awards1')
-            var imdb1 = document.getElementById('imdb1')
-            var boffice1 = document.getElementById('boffice1')
-            mo1_title.textContent = movie1.Title 
-            mo1_plot.textContent = movie1.Plot 
-            year1.textContent = movie1.Year 
-            awards1.textContent = movie1.Awards 
-            imdb1.textContent = movie1.imdbRating 
-            boffice1.textContent = movie1.BoxOffice
-        }
-        function showCard2(movie2){
-            card2.style.visibility = 'visible'
-            var img2 = card2.querySelector('img')
-            img2.setAttribute('src',movie2.Poster)
-            var mo2_title = document.getElementById('mo2-title')
-            var mo2_plot = document.getElementById('mo2-plot')
-            var year2 = document.getElementById('year2')
-            var awards2 = document.getElementById('awards2')
-            var imdb2 = document.getElementById('imdb2')
-            var boffice2 = document.getElementById('boffice2')
-            mo2_title.textContent = movie2.Title 
-            mo2_plot.textContent = movie2.Plot 
-            year2.textContent = movie2.Year 
-            awards2.textContent = movie2.Awards 
-            imdb2.textContent = movie2.imdbRating 
-            boffice2.textContent = movie2.BoxOffice
-        }
-
-
-        
-
+    <script type="text/javascript" src="index.js">
     </script>
 </html>
 

@@ -1,0 +1,63 @@
+div.container-fluid{
+    max-height:900px;
+    min-width: 300px;
+    
+}
+#mid{
+    background: linear-gradient(90deg, #00C9FF 0%, #92FE9D 100%);
+}
+a.btn-danger{
+    border:3px solid white;
+    font-size:23px;
+    font-weight: 800;
+}
+#mid a{
+    color:white;
+}
+#mid a:hover{
+    border:3px solid gold;
+    color:cornsilk;
+}
+#intro1{
+    display:block;
+    font-family: 'Righteous';
+    text-align:Center;
+    font-size:5rem;
+    margin-bottom:100px;
+    margin-top:0px;
+    color:white;
+}
+#intro2{
+    display:none;
+}
+@media (max-width:1130px){
+    #intro1{
+        font-size:3.6rem;
+    }
+}
+@media (max-width: 768px){
+    #mid{
+        max-height:300px;
+    }
+    #mid input{
+        max-width:50%;
+        margin: 0 auto;
+    }
+    #sec1 img, #sec2 img{
+        max-height:270px;
+    }
+    #sec1, #sec2{
+        height:70% !important;
+    }
+    #intro1{
+        display:none;
+    }
+    #intro2{
+        display:block;
+        font-family: 'Righteous';
+        text-align:Center;
+        font-size:2rem;
+        margin-bottom:20px;
+        color:white;
+    }
+}
